@@ -1,0 +1,14 @@
+<% recetas.forEach(receta => { %>
+    <div class="receta">
+        <h2><%= receta.nombre_receta %></h2>
+        <div class="alergias">
+            <p>Tipo de dieta: <%= receta.tipo_dieta %></p>
+            <p>Alergias: <%= receta.alergias %></p>
+            <p>Objetivos de Salud: <%= receta.objetivos_salud %></p>
+        </div>
+        <img src="<%= receta.foto_receta %>" alt="foto_receta" class="imagen_receta">
+        <div class="descripcion_receta">
+            <p><%= receta.descripcion_receta %></p>
+        </div>
+    </div>
+<% }) %>

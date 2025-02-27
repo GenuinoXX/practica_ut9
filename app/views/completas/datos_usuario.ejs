@@ -1,0 +1,12 @@
+<% usuarios.forEach(user => { %>
+    <div class="usuario">
+        <div class="info">
+            <h2>Bienvenid@, <%= user.email %></h2>
+            <p>Se unió en <%= user.fecha_registro %></p>
+        </div>
+        <img src="<%= user.avatar %>" alt="avatar usuario" class="avatar">
+    </div>
+    <div class="descripcion_usuario">
+        <p><%= user.descripcion_perfil %></p>
+    </div>
+<% }); %>

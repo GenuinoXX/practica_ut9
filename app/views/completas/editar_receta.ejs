@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar tu receta</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+    <h2>Cambia los datos de la receta</h2>
+    <% receta.forEach(rec => { %>
+        <form action="/perfil/editar/" method="post">
+            <input type="hidden" name="id_receta" value="<%= rec.id_receta %>">
+            <p>
+                <label for="nombre_receta">Cambia el nombre: </label>
+                <input type="text" name="nombre_receta" id="nombre_receta" value="<%= rec.nombre_receta %>">
+            </p>
+            <p>
+                <label for="descripcion_receta">Cambia la descripción: </label>
+                <textarea name="descripcion_receta" rows="4" cols="50" value="<%= rec.descripcion_receta %>"></textarea>
+            </p>
+            <p>
+                <label for="avatar_receta">Coloque la url del nuevo avatar: </label>
+                <input type="text" name="avatar_receta" id="avatar_receta" value="<%= rec.foto_receta %>">
+            </p>
+            <button type="submit">Actualizar Receta</button>
+        </form>
+    <% }) %>
+    <button onclick="location.href='/perfil/mis_recetas'">Volver al perfil</button>
+</body>
+</html>

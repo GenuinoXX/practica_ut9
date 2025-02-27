@@ -1,0 +1,290 @@
+/* estilos.css */
+
+:root {
+    --color-naranja: #FF9F1C;
+    --color-naranja-oscuro: #F27405;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+    flex: 1;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Estilos del header */
+header {
+    background: var(--color-naranja);
+    color: #fff;
+    padding: 1rem 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Estilos del footer */
+footer {
+    background: var(--color-naranja);
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+footer h1 {
+    color: #fff;
+    margin: 0;
+}
+
+/* Estilos de formularios */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 550px;
+    margin: 20px auto;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select {
+    width: 98%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background: var(--color-naranja);
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--color-naranja-oscuro);
+}
+
+/* Estilos para las recetas */
+#recetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.receta {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+.receta:hover {
+    transform: translateY(-5px);
+}
+
+.receta img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.alergias {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.descripcion_receta {
+    margin-top: 10px;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Estilos para el perfil */
+.usuario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.descripcion_usuario {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Estilos para los filtros */
+#filtros {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .receta {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    header nav ul {
+        flex-direction: column;
+    }
+
+    header nav ul li {
+        margin-bottom: 10px;
+    }
+
+    .receta {
+        width: 100%;
+    }
+}
+
+/* Añade esto al final de tu archivo estilos.css */
+
+/* Estilos para registrologin.ejs */
+.registro-login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.registro-login-container h2 {
+  margin-bottom: 20px;
+}
+
+.registro-login-container p {
+  margin-bottom: 30px;
+}
+
+.registro-login-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+/* Estilos para mis_recetas.ejs y recetas_desbloqueadas.ejs */
+.recetas-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.receta-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  width: calc(33.333% - 20px);
+  max-width: 350px;
+  box-sizing: border-box;
+}
+
+.receta-card:hover {
+  transform: translateY(-5px);
+}
+
+.receta-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.receta-card h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.receta-info {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.receta-descripcion {
+  font-size: 0.95em;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.receta-botones {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .receta-card {
+      width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .receta-card {
+      width: 100%;
+  }
+}

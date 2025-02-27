@@ -1,0 +1,18 @@
+<% recetas.forEach(receta => { %>
+    <div class="receta">
+        <h2><%= receta.nombre_receta %></h2>
+        <div class="alergias">
+            <p><%= receta.tipo_dieta %></p>
+            <p><%= receta.alergias %></p>
+            <p><%= receta.objetivos_salud %></p>
+        </div>
+        <img src="<%= receta.foto_receta %>" alt="foto_receta" class="imagen_receta">
+        <div class="descripcion_receta">
+            <p><%= receta.descripcion_receta %></p>
+        </div>
+    </div>
+    <div class="botones">
+        <button onclick="location.href='/perfil/editar?id=<%= receta.id_receta %>'">Editar Receta</button>
+        <button onclick="location.href='/perfil/eliminar?id=<%= receta.id_receta %>'">Eliminar Receta</button>
+    </div>
+<% }) %>

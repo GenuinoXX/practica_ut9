@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas Aleatorias</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <%- include("../parciales/header.ejs") %>
+    <main>
+        <h1>Recetas Aleatorias</h1>
+
+        <!-- Filtros -->
+        <div id="filtros">
+            <label>Tipo de dieta:</label>
+            <select id="tipoDieta">
+                <option value="Ninguno">Cualquier tipo</option>
+                <option value="Carnívoro">Carnívoro</option>
+                <option value="Vegetariano">Vegetariano</option>
+                <option value="Vegano">Vegano</option>
+                <option value="Pescetariano">Pescetariano</option>
+                <option value="Flexitariano">Flexitariano</option>
+                <option value="Ovolactovegetariano">Ovolactovegetariano</option>
+            </select>
+
+            <label>Objetivo de Salud:</label>
+            <select id="objetivo">
+                <option value="Ninguno">Cualquier objetivo</option>
+                <option value="Keto">Keto</option>
+                <option value="Alta en proteínas">Alta en proteínas</option>
+                <option value="Mediterránea">Mediterránea</option>
+                <option value="Baja en carbohidratos">Baja en carbohidratos</option>
+                <option value="DASH">DASH</option>
+                <option value="Ayuno intermitente">Ayuno intermitente</option>
+            </select>
+
+            <label>Alérgenos:</label>
+            <select id="alergenos">
+                <option value="Ninguno">Sin restricciones</option>
+                <option value="Sin gluten">Sin gluten</option>
+                <option value="Sin lactosa">Sin lactosa</option>
+                <option value="Sin frutos secos">Sin frutos secos</option>
+                <option value="Sin azúcar">Sin azúcar</option>
+                <option value="Sin soja">Sin soja</option>
+                <option value="Paleo">Paleo</option>
+            </select>
+
+            <button onclick="filtrarRecetas()">Filtrar</button>
+        </div>
+
+        <!-- Lista de Recetas -->
+        <div id="recetas">
+            <% if (recetas.length > 0) { %>
+                <% recetas.forEach(receta => { %>
+                    <div class="receta">
+                        <img src="<%= receta.foto_receta %>" alt="<%= receta.nombre_receta %>">
+                        <h2><%= receta.nombre_receta %></h2>
+                        <p><strong>Tipo de dieta:</strong> <%= receta.tipo_dieta %></p>
+                        <p><strong>Objetivo de salud:</strong> <%= receta.objetivos_salud %></p>
+                        <p><strong>Alérgenos:</strong> <%= receta.alergias %></p>
+                        
+                        <!-- Div donde se agregará el mensaje de desbloqueo -->
+                        <div id="mensaje_desbloqueado_<%= receta.id_receta %>" class="mensaje"></div>
+
+                        <% if (usuario) { %>
+                            <!-- Botón para desbloquear recetas -->
+                            <button onclick="location.href='/desbloquear?id=<%= receta.id_receta %>'" id="btn_desbloquear" class="btn_desbloquear" data-id="<%= receta.id_receta %>">Desbloquear</button>
+                        <% } else { %>
+                            <p>Inicia sesión para ver la receta.</p>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No hay recetas disponibles.</p>
+            <% } %>
+        </div>
+    </main>
+
+    <script>
+        // Filtrar recetas al hacer clic en el botón
+        function filtrarRecetas() {
+            const tipoDieta = document.getElementById("tipoDieta").value;
+            const objetivo = document.getElementById("objetivo").value;
+            const alergenos = document.getElementById("alergenos").value;
+
+            // Construir la URL con los filtros seleccionados
+            const url = `/filtrar?tipoDieta=${tipoDieta}&objetivo=${objetivo}&alergenos=${alergenos}`;
+
+            // Hacer la solicitud al backend para obtener las recetas filtradas
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const recetasContainer = document.getElementById("recetas");
+                    recetasContainer.innerHTML = "";
+
+                    if (data.length > 0) {
+                        data.forEach(receta => {
+                            recetasContainer.innerHTML += `
+                                <div class="receta">
+                                    <img src="${receta.foto_receta}" alt="${receta.nombre_receta}">
+                                    <h2>${receta.nombre_receta}</h2>
+                                    <p><strong>Tipo de dieta:</strong> ${receta.tipo_dieta}</p>
+                                    <p><strong>Objetivo de salud:</strong> ${receta.objetivos_salud}</p>
+                                    <p><strong>Alérgenos:</strong> ${receta.alergias}</p>
+                                    <button onclick="desbloquearReceta('${receta.id_receta}')" class="btn_desbloquear">Desbloquear</button>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        recetasContainer.innerHTML = "<p>No hay recetas disponibles.</p>";
+                    }
+                })
+                .catch(error => console.error("Error al filtrar recetas:", error));
+        }
+
+        // Desbloquear recetas
+        document.addEventListener("DOMContentLoaded", () => {
+            // Seleccionamos todos los botones "Desbloquear"
+            const botonesDesbloquear = document.querySelectorAll(".btn_desbloquear");
+
+            // Agregamos un event listener a cada botón
+            botonesDesbloquear.forEach(boton => {
+                boton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    const idReceta = boton.getAttribute("data-id");
+                    const mensajeDiv = document.getElementById(`mensaje_desbloqueado_${idReceta}`);
+                    mensajeDiv.innerHTML = "Receta Desbloqueada";
+                    mensajeDiv.style.color = 'green';
+                    mensajeDiv.style.fontWeight = 'bold';
+
+                    // Redirigir a la ruta de desbloqueo después de mostrar el mensaje
+                    setTimeout(() => {
+                        location.href = "/desbloquear?id=" + idReceta;
+                    }, 1000); // Redirigir después de 1 segundo
+                });
+            });
+        });
+    </script>
+
+    <%- include("../parciales/footer.ejs") %>
+</body>
+</html>

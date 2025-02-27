@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de API Recetas</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h2>Regístrate!</h2>
+    <form action="/register" method="post">
+        <p>Email de usuario: <input type="text" name="email" required></p>
+        <p>Contraseña: <input type="password" name="password" required></p>
+        <button type="submit">Registrar</button>
+        <br>
+        <br>
+        <button onclick="location.href='/login'">Ya tengo cuenta, ir a Login</button>
+        <br>
+        <% if (mensajeError) { %>
+            <p id="mensaje_error">
+                <%= mensajeError %>
+            </p>
+        <% } %>
+    </form>
+</body>
+</html>

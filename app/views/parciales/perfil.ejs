@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Personal</title>
+    <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+    <%- include("../parciales/header.ejs") %>
+    <main>
+            <div id="ventana_cambiante">
+                <% if (contenido === 'perfil') { %>
+                    <%- include("../completas/datos_usuario.ejs", { usuarios: usuarios })%>
+                <% } else if (contenido === 'avatar') { %>
+                    <%- include("../completas/cambiar_avatar.ejs")%>
+                <% } else if (contenido === 'descripcion') { %>
+                    <%- include("../completas/cambiar_descripcion.ejs")%>
+                <% } else if (contenido === 'recetas') { %>
+                    <%- include("../completas/mis_recetas.ejs")%>
+                <% } else if (contenido === 'desbloqueadas') { %>
+                    <%- include("../completas/recetas_desbloqueadas.ejs")%>
+                <% } %>
+            </div>
+            <div class="opciones_perfil">
+                <button onclick="location.href='/perfil/descripcion'">Perfil</button>
+                <button onclick="location.href='/perfil/nuevo_avatar'">Cambiar Avatar</button>
+                <button onclick="location.href='/perfil/nueva_descripcion'">Cambiar Descripción</button>
+                <button onclick="location.href='/perfil/mis_recetas'">Ver Mis Recetas</button>
+                <button onclick="location.href='/perfil/recetas_desbloqueadas'">Ver Recetas Desbloqueadas</button>
+            </div>
+    </main>
+    <%- include("./footer.ejs")%>
+</body>
+</html>
