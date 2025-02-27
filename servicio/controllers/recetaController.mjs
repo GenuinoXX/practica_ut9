@@ -1,4 +1,17 @@
-import {recetasUsuario, recetasDesbloqueadas, recetasPorId, editarReceta, borrarReceta} from "../models/recetaModel.mjs"
+import {recetasUsuario, recetasDesbloqueadas, recetasPorId, editarReceta, borrarReceta, recetas} from "../models/recetaModel.mjs"
+
+export const todasRecetas = async (req, res) => {
+    try{
+        const todasRecetas = await recetas()
+        if(!todasRecetas){
+            res.status(404).json({mensaje: "No se encontraron recetas"})
+        }else{
+            res.json({recetas: todasRecetas})
+        }
+    }catch(error){
+        res.status(500).json({mensaje: "Error consiguiendo los datos", error})
+    }
+}
 
 export const misRecetas = async (req, res) => {
     try{

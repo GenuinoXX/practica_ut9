@@ -1,5 +1,10 @@
 import db from "../config/db.mjs"
 
+export const recetas = async()=>{
+    const [registros] = await db.query('SELECT * FROM Recetas')
+    return registros
+}
+
 export const recetasUsuario = async(email)=>{
     const busqueda = email
     const [registros] = await db.query('SELECT R.* FROM Recetas R JOIN Usuario_Recetas UR ON R.id_receta = UR.id_receta WHERE UR.email = ?;', [busqueda])

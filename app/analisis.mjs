@@ -3,22 +3,21 @@ import { DataFrame } from "data-forge"
 
 async function fetchRecetasTipoDieta() {
     try {
-        const email = req.session.user.email
-        const response = await axios.get(`http://localhost:3000/api/recetas/${email}`)
-        const recetas = response.data;
+        const response = await axios.get(`http://localhost:3000/api/recetas`)
+        const recetas = response.data.recetas
 
         const df = new DataFrame(recetas);
-        const recetasPorDieta = df.groupBy(row => row.tipoDieta)
-                                   .select(group => ({
-                                       tipoDieta: group.first().tipoDieta,
-                                       cantidad: group.count()
+        const recetasPorDieta = df.groupBy(fila => fila.tipo_dieta)
+                                   .select(grupo => ({
+                                       tipo_dieta: grupo.first().tipo_dieta,
+                                       cantidad: grupo.count()
                                    }))
-                                   .inflate()
+                                   .toArray()
 
         console.log("Análisis de recetas por tipo de dieta:")
-        console.log(recetasPorDieta.toArray())
+        console.log(recetasPorDieta)
     } catch (error) {
-        console.error("Error al obtener recetas:", error);
+        console.error("Error al obtener recetas:", error)
     }
 }
 
